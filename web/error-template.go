@@ -7,7 +7,7 @@ import (
 
 /* Error templates for edit link currentPage */
 
-func (d dataEditLink) emptyUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
+func (d dataEditLink) emptyURL(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
 	templateExec(w, rq, templateEditLink, dataEditLink{
 		Bookmark:      post,
@@ -16,7 +16,7 @@ func (d dataEditLink) emptyUrl(post types.Bookmark, data *dataCommon, w http.Res
 	})
 }
 
-func (d dataEditLink) invalidUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
+func (d dataEditLink) invalidURL(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
 	templateExec(w, rq, templateEditLink, dataEditLink{
 		Bookmark:        post,
@@ -36,7 +36,7 @@ func (d dataEditLink) titleNotFound(post types.Bookmark, data *dataCommon, w htt
 
 /* Error templates for save link currentPage */
 
-func (d dataSaveLink) emptyUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
+func (d dataSaveLink) emptyURL(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
 	templateExec(w, rq, templateSaveLink, dataSaveLink{
 		Bookmark:      post,
@@ -45,7 +45,7 @@ func (d dataSaveLink) emptyUrl(post types.Bookmark, data *dataCommon, w http.Res
 	})
 }
 
-func (d dataSaveLink) invalidUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
+func (d dataSaveLink) invalidURL(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
 	templateExec(w, rq, templateSaveLink, dataSaveLink{
 		Bookmark:        post,

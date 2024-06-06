@@ -1292,20 +1292,20 @@ func postEditBookmark(w http.ResponseWriter, rq *http.Request) {
 	var viewData dataEditLink
 
 	if bookmark.URL == "" && bookmark.Title == "" {
-		viewData.emptyUrl(*bookmark, common, w, rq)
+		viewData.emptyURL(*bookmark, common, w, rq)
 		return
 	}
 
 	mixUpTitleLink(&bookmark.Title, &bookmark.URL)
 
 	if bookmark.URL == "" {
-		viewData.emptyUrl(*bookmark, common, w, rq)
+		viewData.emptyURL(*bookmark, common, w, rq)
 		return
 	}
 
 	if bookmark.Title == "" {
 		if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
-			viewData.invalidUrl(*bookmark, common, w, rq)
+			viewData.invalidURL(*bookmark, common, w, rq)
 			return
 		}
 		newTitle, err := readpage.FindTitle(bookmark.URL)
@@ -1319,7 +1319,7 @@ func postEditBookmark(w http.ResponseWriter, rq *http.Request) {
 
 	if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
 		log.Printf("Invalid URL was passed, asking again: %s\n", bookmark.URL)
-		viewData.invalidUrl(*bookmark, common, w, rq)
+		viewData.invalidURL(*bookmark, common, w, rq)
 		return
 	}
 
@@ -1496,20 +1496,20 @@ func postSaveBookmark(w http.ResponseWriter, rq *http.Request) {
 	bookmark.Tags = types.SplitTags(rq.FormValue("tags"))
 
 	if bookmark.URL == "" && bookmark.Title == "" {
-		viewData.emptyUrl(bookmark, common, w, rq)
+		viewData.emptyURL(bookmark, common, w, rq)
 		return
 	}
 
 	mixUpTitleLink(&bookmark.Title, &bookmark.URL)
 
 	if bookmark.URL == "" {
-		viewData.emptyUrl(bookmark, common, w, rq)
+		viewData.emptyURL(bookmark, common, w, rq)
 		return
 	}
 
 	if bookmark.Title == "" {
 		if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
-			viewData.invalidUrl(bookmark, common, w, rq)
+			viewData.invalidURL(bookmark, common, w, rq)
 			return
 		}
 		newTitle, err := readpage.FindTitle(bookmark.URL)
@@ -1521,7 +1521,7 @@ func postSaveBookmark(w http.ResponseWriter, rq *http.Request) {
 	}
 
 	if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
-		viewData.invalidUrl(bookmark, common, w, rq)
+		viewData.invalidURL(bookmark, common, w, rq)
 		return
 	}
 

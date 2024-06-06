@@ -28,7 +28,7 @@ func RequestActorByNickname(nickname string) (*types.Actor, error) {
 	}
 
 	// find id
-	id, err := requestIdByWebFingerAcct(user, host)
+	id, err := requestIDByWebFingerAcct(user, host)
 	if err == nil && id == "" {
 		return nil, fmt.Errorf("user not found 404: %s", nickname)
 	}

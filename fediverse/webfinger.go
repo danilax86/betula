@@ -20,7 +20,7 @@ type webfingerDocument struct {
 	} `json:"links"`
 }
 
-func requestIdByWebFingerAcct(user, host string) (id string, err error) {
+func requestIDByWebFingerAcct(user, host string) (id string, err error) {
 	requestURL := fmt.Sprintf("https://%s/.well-known/webfinger?resource=acct:%s@%s", host, user, host)
 	req, err := http.NewRequest(http.MethodGet, requestURL, nil)
 	if err != nil {

@@ -13,13 +13,13 @@ type UndoFollowReport struct {
 	FollowReport
 }
 
-func newUndo(objectId string, object Dict) ([]byte, error) {
-	object["id"] = objectId
+func newUndo(objectID string, object Dict) ([]byte, error) {
+	object["id"] = objectID
 	return json.Marshal(Dict{
 		"@context": atContext,
 		"type":     "Undo",
 		"actor":    betulaActor,
-		"id":       objectId + "?undo",
+		"id":       objectID + "?undo",
 		"object":   object,
 	})
 }
