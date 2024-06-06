@@ -108,6 +108,9 @@ func sendRejectFollow(report activities.FollowReport) {
 	}
 
 	activity, err := activities.NewReject(report.OriginalActivity)
+	if err != nil {
+		log.Println(err)
+	}
 	if err = SendActivityToInbox(activity, fediverse.RequestActorInboxByID(report.ActorID)); err != nil {
 		log.Println(err)
 	}
@@ -119,6 +122,9 @@ func sendAcceptFollow(report activities.FollowReport) {
 	}
 
 	activity, err := activities.NewAccept(report.OriginalActivity)
+	if err != nil {
+		log.Println(err)
+	}
 	if err = SendActivityToInbox(activity, fediverse.RequestActorInboxByID(report.ActorID)); err != nil {
 		log.Println(err)
 	} else {
