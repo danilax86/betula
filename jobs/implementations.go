@@ -133,34 +133,34 @@ func sendAcceptFollow(report activities.FollowReport) {
 }
 
 func notifyAboutMyRepost(job jobtype.Job) {
-	var postId int
+	var postID int
 	switch v := job.Payload.(type) {
 	case int64:
-		postId = int(v)
+		postID = int(v)
 	default:
 		log.Printf("Unexpected payload for notifyJob of type %T: %v\n", v, v)
 		return
 	}
 
-	post, found := db.GetBookmarkByID(postId)
+	post, found := db.GetBookmarkByID(postID)
 	if !found {
-		log.Printf("Can't notify about non-existent repost no. %d\n", postId)
+		log.Printf("Can't notify about non-existent repost no. %d\n", postID)
 		return
 	}
 
 	if post.RepostOf == nil {
-		log.Printf("Post %d is not a repost\n", postId)
+		log.Printf("Post %d is not a repost\n", postID)
 		return
 	}
 
 	if post.Visibility != types.Public {
-		log.Printf("Repost %d is not public, not notifying\n", postId)
+		log.Printf("Repost %d is not public, not notifying\n", postID)
 		return
 	}
 
 	activity, err := activities.NewAnnounce(
 		*post.RepostOf,
-		fmt.Sprintf("%s/%d", settings.SiteURL(), postId),
+		fmt.Sprintf("%s/%d", settings.SiteURL(), postID),
 	)
 	if err != nil {
 		log.Println(err)
@@ -209,16 +209,16 @@ func verifyJob(job jobtype.Job) {
 		return
 	}
 
-	// getting postId
+	// getting postID
 	parts := strings.Split(report.OriginalPage, "/")
-	postId, err := strconv.Atoi(parts[len(parts)-1])
+	postID, err := strconv.Atoi(parts[len(parts)-1])
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
 	log.Println("Saving repost")
-	db.SaveRepost(postId, types.RepostInfo{
+	db.SaveRepost(postID, types.RepostInfo{
 		URL:  report.RepostPage,
 		Name: report.ReposterUsername,
 	})
@@ -250,14 +250,14 @@ func receiveUnrepostJob(job jobtype.Job) {
 	}
 
 	parts := strings.Split(report.OriginalPage, "/")
-	postId, err := strconv.Atoi(parts[len(parts)-1])
+	postID, err := strconv.Atoi(parts[len(parts)-1])
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
 	log.Printf("Deleting %s's repost of %s at %s\n", report.ReposterUsername, report.OriginalPage, report.RepostPage)
-	db.DeleteRepost(postId, report.RepostPage)
+	db.DeleteRepost(postID, report.RepostPage)
 }
 
 func notifyAboutMyUnrepost(job jobtype.Job) {
