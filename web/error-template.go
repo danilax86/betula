@@ -5,12 +5,6 @@ import (
 	"net/http"
 )
 
-type errorTemplate interface {
-	emptyUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request)
-	invalidUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request)
-	titleNotFound(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request)
-}
-
 /* Error templates for edit link currentPage */
 
 func (d dataEditLink) emptyUrl(post types.Bookmark, data *dataCommon, w http.ResponseWriter, rq *http.Request) {
