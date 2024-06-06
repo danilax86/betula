@@ -1,3 +1,4 @@
+// Package search implements a simple search engine.
 package search
 
 import (
