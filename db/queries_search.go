@@ -99,7 +99,7 @@ func tagsOK(postTags []types.Tag, includedTags, excludedTags []string) bool {
 	}
 
 	for _, marker := range includeMask {
-		if marker == false {
+		if !marker {
 			return false
 		}
 	}

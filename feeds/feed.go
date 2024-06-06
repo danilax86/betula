@@ -40,7 +40,7 @@ func Posts() *rss.Feed {
 	feed := rss.Feed{
 		Title:       fmt.Sprintf("%s posts", settings.SiteName()),
 		Link:        settings.SiteURL(),
-		Description: fmt.Sprintf("All public posts are sent to this feed."),
+		Description: "All public posts are sent to this feed.",
 		PubDate:     now.Format(rssTimeFormat),
 		Items:       []*rss.Item{},
 	}
@@ -79,7 +79,7 @@ func Digest() *rss.Feed {
 	feed := rss.Feed{
 		Title:       fmt.Sprintf("%s daily digest", settings.SiteName()),
 		Link:        settings.SiteURL(),
-		Description: fmt.Sprintf("Every day, a list of all links posted that day is sent."),
+		Description: "Every day, a list of all links posted that day is sent.",
 		PubDate:     now.Format(rssTimeFormat),
 		Items:       []*rss.Item{},
 	}

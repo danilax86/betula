@@ -11,7 +11,6 @@ import (
 	"git.sr.ht/~bouncepaw/betula/jobs"
 	"git.sr.ht/~bouncepaw/betula/settings"
 	"git.sr.ht/~bouncepaw/betula/web"
-	_ "git.sr.ht/~bouncepaw/betula/web" // For init()
 	"log"
 	"os"
 	"path/filepath"

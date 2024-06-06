@@ -74,7 +74,7 @@ func guessAnnounce(activity Dict) (reportMaybe any, err error) {
 	}
 
 	if err := mustHaveSuchField(
-		activity, "id", ErrNoId,
+		activity, "id", ErrNoID,
 		func(v string) {
 			report.RepostPage = v
 		},
@@ -87,7 +87,7 @@ func guessAnnounce(activity Dict) (reportMaybe any, err error) {
 	}
 
 	if !stricks.ValidURL(report.RepostPage) {
-		return nil, ErrNoId
+		return nil, ErrNoID
 	}
 
 	return report, nil

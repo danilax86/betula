@@ -16,8 +16,8 @@ import (
 	"git.sr.ht/~bouncepaw/betula/types"
 )
 
-func DeleteNote(postId int) ([]byte, error) {
-	id := fmt.Sprintf("%s/%d", settings.SiteURL(), postId)
+func DeleteNote(postID int) ([]byte, error) {
+	id := fmt.Sprintf("%s/%d", settings.SiteURL(), postID)
 	activity := Dict{
 		"@context": atContext,
 		"type":     "Delete",
@@ -244,7 +244,7 @@ func RemoteBookmarkFromDict(object Dict) (note *types.RemoteBookmark, err error)
 	}
 
 	// Collecting tags
-	tags, ok := object["tag"].([]any)
+	tags, _ := object["tag"].([]any)
 	for _, anytag := range tags {
 		tag, ok := anytag.(Dict)
 		if !ok {

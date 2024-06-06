@@ -62,7 +62,7 @@ var (
 	ErrNoActor         = errors.New("activities: actor absent or invalid")
 	ErrNoActorUsername = errors.New("activities: actor with absent or invalid username")
 	ErrUnknownType     = errors.New("activities: unknown activity type")
-	ErrNoId            = errors.New("activities: id absent or invalid")
+	ErrNoID            = errors.New("activities: id absent or invalid")
 	ErrNoObject        = errors.New("activities: object absent or invalid")
 	ErrEmptyField      = errors.New("activities: empty field")
 	ErrNotNote         = errors.New("activities: not a Note")

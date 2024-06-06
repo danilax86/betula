@@ -2,10 +2,9 @@
 package stricks
 
 import (
-	"fmt"
-	"math/rand"
+	"crypto/rand"
+	"encoding/hex"
 	"net/url"
-	"time"
 )
 
 func ValidURL(s string) bool {
@@ -38,10 +37,9 @@ func StringifyAnything(o any) string {
 
 func RandomWhatever() string {
 	b := make([]byte, 20)
-	rand.Read(b)
-	return fmt.Sprintf("%x", b)[2:20]
-}
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
+	_, err := rand.Read(b)
+	if err != nil {
+		return ""
+	}
+	return hex.EncodeToString(b[2:20])
 }

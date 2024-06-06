@@ -46,7 +46,7 @@ func RenderRemoteBookmarks(raws []types.RemoteBookmark) (renders []types.Rendere
 	for _, raw := range raws {
 		actors[raw.ActorID] = nil
 	}
-	for actorID, _ := range actors {
+	for actorID := range actors {
 		actor, _ := db.ActorByID(actorID)
 		actors[actorID] = actor // might be nil? I doubt it
 	}

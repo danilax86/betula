@@ -21,7 +21,7 @@ const json1 = `
     "object": "https://links.bob/42"
 }`
 
-const jsonNoId = `
+const jsonNoID = `
 {
     "@context": "https://www.w3.org/ns/activitystreams",
     "type": "Announce",
@@ -35,7 +35,7 @@ const jsonNoId = `
     "object": "https://links.bob/42"
 }`
 
-const jsonBadId = `
+const jsonBadID = `
 {
     "@context": "https://www.w3.org/ns/activitystreams",
     "type": "Announce",
@@ -77,7 +77,7 @@ const jsonSallyOffered = `
   "object": "http://example.org/foo"
 }`
 
-const badJson = `Laika`
+const badJSON = `Laika`
 
 var table = []struct {
 	json   string
@@ -89,10 +89,10 @@ var table = []struct {
 		RepostPage:       "https://links.alice/84",
 		OriginalPage:     "https://links.bob/42",
 	}},
-	{jsonNoId, ErrNoId, nil},
-	{jsonBadId, ErrNoId, nil},
+	{jsonNoID, ErrNoID, nil},
+	{jsonBadID, ErrNoID, nil},
 	{jsonNoUsername, ErrNoActorUsername, nil},
-	{badJson, errors.New("invalid character 'L' looking for beginning of value"), nil},
+	{badJSON, errors.New("invalid character 'L' looking for beginning of value"), nil},
 	{jsonSallyOffered, ErrUnknownType, nil},
 	// one might want to write many more tests
 }
