@@ -936,7 +936,6 @@ func getSettings(w http.ResponseWriter, rq *http.Request) {
 		FirstRun:    isFirstRun,
 		RequestHost: rq.Host,
 	})
-	return
 }
 
 func postSettings(w http.ResponseWriter, rq *http.Request) {
@@ -1031,7 +1030,6 @@ func getSessions(w http.ResponseWriter, rq *http.Request) {
 		Sessions:   sessions,
 		dataCommon: emptyCommon(),
 	})
-	return
 }
 
 func deleteSession(w http.ResponseWriter, rq *http.Request) {
@@ -1082,7 +1080,6 @@ func getLogout(w http.ResponseWriter, rq *http.Request) {
 	templateExec(w, rq, templateLogoutForm, dataAuthorized{
 		dataCommon: emptyCommon(),
 	})
-	return
 }
 
 func postLogout(w http.ResponseWriter, rq *http.Request) {
@@ -1102,7 +1099,6 @@ func getLogin(w http.ResponseWriter, rq *http.Request) {
 	templateExec(w, rq, templateLoginForm, dataLogin{
 		dataCommon: emptyCommon(),
 	})
-	return
 }
 
 func postLogin(w http.ResponseWriter, rq *http.Request) {
@@ -1248,7 +1244,6 @@ func postEditBookmarkTags(w http.ResponseWriter, rq *http.Request) {
 }
 
 type dataEditLink struct {
-	errorTemplate
 	*dataCommon
 	types.Bookmark
 	ErrorEmptyURL      bool
@@ -1267,7 +1262,6 @@ func getEditBookmark(w http.ResponseWriter, rq *http.Request) {
 		Bookmark:   *bookmark,
 		dataCommon: commonWithAutoCompletion(),
 	})
-	return
 }
 
 func postEditBookmark(w http.ResponseWriter, rq *http.Request) {
@@ -1464,7 +1458,6 @@ func postDeleteTag(w http.ResponseWriter, rq *http.Request) {
 }
 
 type dataSaveLink struct {
-	errorTemplate
 	*dataCommon
 	types.Bookmark
 	Another bool
@@ -1488,7 +1481,6 @@ func getSaveBookmark(w http.ResponseWriter, rq *http.Request) {
 		Bookmark:   bookmark,
 		dataCommon: commonWithAutoCompletion(),
 	})
-	return
 }
 
 func postSaveBookmark(w http.ResponseWriter, rq *http.Request) {
