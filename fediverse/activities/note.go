@@ -244,7 +244,7 @@ func RemoteBookmarkFromDict(object Dict) (note *types.RemoteBookmark, err error)
 	}
 
 	// Collecting tags
-	tags, ok := object["tag"].([]any)
+	tags, _ := object["tag"].([]any)
 	for _, anytag := range tags {
 		tag, ok := anytag.(Dict)
 		if !ok {
