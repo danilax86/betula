@@ -374,7 +374,7 @@ func getWebFinger(w http.ResponseWriter, rq *http.Request) {
   ]
 }`, expected, settings.SiteURL(), adminUsername)
 	w.Header().Set("Content-Type", "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"")
-	if _, err := fmt.Fprintf(w, doc); err != nil {
+	if _, err := fmt.Fprint(w, doc); err != nil {
 		log.Printf("Error when serving WebFinger: %s\n", err)
 	}
 }
@@ -469,7 +469,7 @@ func getWellKnownNodeInfo(w http.ResponseWriter, rq *http.Request) {
 		]
 	}`
 	w.Header().Set("Content-Type", "application/json")
-	if _, err := fmt.Fprintf(w, fmt.Sprintf(doc, settings.SiteURL())); err != nil {
+	if _, err := fmt.Fprint(w, fmt.Sprintf(doc, settings.SiteURL())); err != nil {
 		log.Printf("Error when serving /.well-known/nodeinfo: %s\n", err)
 	}
 }
