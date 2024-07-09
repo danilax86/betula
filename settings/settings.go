@@ -134,7 +134,7 @@ func SiteDomain() string {
 }
 
 func UserAgent() string {
-	return fmt.Sprintf("Betula; %s; Bot", SiteDomain)
+	return fmt.Sprintf("Betula; %s; Bot", SiteDomain())
 }
 
 func SetSettings(settings types.Settings) {
