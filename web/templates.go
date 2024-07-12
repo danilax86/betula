@@ -120,12 +120,11 @@ var funcMapForTime = template.FuncMap{
 
 // Do not bother to fill it.
 type dataCommon struct {
-	federationEnabled bool
-	authorized        bool
-	siteTitle         template.HTML
-	siteName          string
-	head              template.HTML
-	searchQuery       string
+	authorized  bool
+	siteTitle   template.HTML
+	siteName    string
+	head        template.HTML
+	searchQuery string
 
 	paginator []types.Page
 }

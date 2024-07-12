@@ -382,7 +382,7 @@ func getWebFinger(w http.ResponseWriter, rq *http.Request) {
   ]
 }`, expected, settings.SiteURL(), adminUsername)
 	w.Header().Set("Content-Type", "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"")
-	if _, err := fmt.Fprintf(w, doc); err != nil {
+	if _, err := io.WriteString(w, doc); err != nil {
 		log.Printf("Error when serving WebFinger: %s\n", err)
 	}
 }
@@ -477,7 +477,7 @@ func getWellKnownNodeInfo(w http.ResponseWriter, rq *http.Request) {
 		]
 	}`
 	w.Header().Set("Content-Type", "application/json")
-	if _, err := fmt.Fprintf(w, fmt.Sprintf(doc, settings.SiteURL())); err != nil {
+	if _, err := io.WriteString(w, fmt.Sprintf(doc, settings.SiteURL())); err != nil {
 		log.Printf("Error when serving /.well-known/nodeinfo: %s\n", err)
 	}
 }
@@ -936,7 +936,6 @@ func getSettings(w http.ResponseWriter, rq *http.Request) {
 		FirstRun:    isFirstRun,
 		RequestHost: rq.Host,
 	})
-	return
 }
 
 func postSettings(w http.ResponseWriter, rq *http.Request) {
@@ -1031,7 +1030,6 @@ func getSessions(w http.ResponseWriter, rq *http.Request) {
 		Sessions:   sessions,
 		dataCommon: emptyCommon(),
 	})
-	return
 }
 
 func deleteSession(w http.ResponseWriter, rq *http.Request) {
@@ -1082,7 +1080,6 @@ func getLogout(w http.ResponseWriter, rq *http.Request) {
 	templateExec(w, rq, templateLogoutForm, dataAuthorized{
 		dataCommon: emptyCommon(),
 	})
-	return
 }
 
 func postLogout(w http.ResponseWriter, rq *http.Request) {
@@ -1102,7 +1099,6 @@ func getLogin(w http.ResponseWriter, rq *http.Request) {
 	templateExec(w, rq, templateLoginForm, dataLogin{
 		dataCommon: emptyCommon(),
 	})
-	return
 }
 
 func postLogin(w http.ResponseWriter, rq *http.Request) {
@@ -1248,7 +1244,6 @@ func postEditBookmarkTags(w http.ResponseWriter, rq *http.Request) {
 }
 
 type dataEditLink struct {
-	errorTemplate
 	*dataCommon
 	types.Bookmark
 	ErrorEmptyURL      bool
@@ -1267,7 +1262,6 @@ func getEditBookmark(w http.ResponseWriter, rq *http.Request) {
 		Bookmark:   *bookmark,
 		dataCommon: commonWithAutoCompletion(),
 	})
-	return
 }
 
 func postEditBookmark(w http.ResponseWriter, rq *http.Request) {
@@ -1298,20 +1292,20 @@ func postEditBookmark(w http.ResponseWriter, rq *http.Request) {
 	var viewData dataEditLink
 
 	if bookmark.URL == "" && bookmark.Title == "" {
-		viewData.emptyUrl(*bookmark, common, w, rq)
+		viewData.emptyURL(*bookmark, common, w, rq)
 		return
 	}
 
 	mixUpTitleLink(&bookmark.Title, &bookmark.URL)
 
 	if bookmark.URL == "" {
-		viewData.emptyUrl(*bookmark, common, w, rq)
+		viewData.emptyURL(*bookmark, common, w, rq)
 		return
 	}
 
 	if bookmark.Title == "" {
 		if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
-			viewData.invalidUrl(*bookmark, common, w, rq)
+			viewData.invalidURL(*bookmark, common, w, rq)
 			return
 		}
 		newTitle, err := readpage.FindTitle(bookmark.URL)
@@ -1325,7 +1319,7 @@ func postEditBookmark(w http.ResponseWriter, rq *http.Request) {
 
 	if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
 		log.Printf("Invalid URL was passed, asking again: %s\n", bookmark.URL)
-		viewData.invalidUrl(*bookmark, common, w, rq)
+		viewData.invalidURL(*bookmark, common, w, rq)
 		return
 	}
 
@@ -1464,7 +1458,6 @@ func postDeleteTag(w http.ResponseWriter, rq *http.Request) {
 }
 
 type dataSaveLink struct {
-	errorTemplate
 	*dataCommon
 	types.Bookmark
 	Another bool
@@ -1488,7 +1481,6 @@ func getSaveBookmark(w http.ResponseWriter, rq *http.Request) {
 		Bookmark:   bookmark,
 		dataCommon: commonWithAutoCompletion(),
 	})
-	return
 }
 
 func postSaveBookmark(w http.ResponseWriter, rq *http.Request) {
@@ -1504,20 +1496,20 @@ func postSaveBookmark(w http.ResponseWriter, rq *http.Request) {
 	bookmark.Tags = types.SplitTags(rq.FormValue("tags"))
 
 	if bookmark.URL == "" && bookmark.Title == "" {
-		viewData.emptyUrl(bookmark, common, w, rq)
+		viewData.emptyURL(bookmark, common, w, rq)
 		return
 	}
 
 	mixUpTitleLink(&bookmark.Title, &bookmark.URL)
 
 	if bookmark.URL == "" {
-		viewData.emptyUrl(bookmark, common, w, rq)
+		viewData.emptyURL(bookmark, common, w, rq)
 		return
 	}
 
 	if bookmark.Title == "" {
 		if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
-			viewData.invalidUrl(bookmark, common, w, rq)
+			viewData.invalidURL(bookmark, common, w, rq)
 			return
 		}
 		newTitle, err := readpage.FindTitle(bookmark.URL)
@@ -1529,7 +1521,7 @@ func postSaveBookmark(w http.ResponseWriter, rq *http.Request) {
 	}
 
 	if _, err := url.ParseRequestURI(bookmark.URL); err != nil {
-		viewData.invalidUrl(bookmark, common, w, rq)
+		viewData.invalidURL(bookmark, common, w, rq)
 		return
 	}
 
